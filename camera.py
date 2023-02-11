@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import winsound
 import time
-#from location import loc, record
+from location import loc, record
 
 path = 'videos/pot_final.mp4'
 net = cv2.dnn.readNetFromDarknet('models/yolov4_tiny_pothole.cfg','models/yolov4_tiny_pothole_last.weights')
@@ -53,10 +53,10 @@ class VideoCamera(object):
                     label = str(classes[cls_ids[i]])
                     t2 = time.time()
                     fps = round(1/(t2-t)) +10
-                    cv2.rectangle(frame, (x-2, y-2), (x + w+2, y + h+2), (0, 0, 0), 1)
-                    cv2.rectangle(frame, (x-2, y-2), (x + 60, y - 18), (0, 0, 0), cv2.FILLED)
+                    cv2.rectangle(frame, (x-2, y-2), (x + w+2, y + h+2), (255, 0, 0), 1)
+                    cv2.rectangle(frame, (x-2, y-2), (x + 60, y - 18), (255, 0, 0), cv2.FILLED)
                     cv2.putText(frame, label, (x, y - 7), font, .6, (255, 255, 255), 1)
-                    #cv2.putText(frame, f"area: {area} sq.ft", (x, y + 15), font, .5, (255, 255, 255), 1)
+                    cv2.putText(frame, f"area: {area} sq.ft", (x, y + 15), font, .5, (255, 255, 255), 1)
                     cv2.putText(frame, f'FPS: {fps}', (24, 30), font, 1.4, (55, 255, 255), 2)
                     ret, jpeg = cv2.imencode('.jpg', frame)
                     if label == 'pothole':
