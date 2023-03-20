@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BE Major Project</title>
+</head>
+<style>
+    .con1 {
+      text-align: center;
+      color: white;
+    }
+
+    
+    .body{
+        background-color: rgb(14, 22, 37);
+    }
+    .btn{
+            color: white;
+            background: purple;
+            padding: 8px 10px;
+            padding-top: 100px;
+            font-size: 20px;
+            border: 2px solid  white;
+            border-radius: 14px;
+            cursor: pointer;
+            align-content: center;
+            padding-top: 5px;
+            
+        }
+        .con2{
+            position: fixed;
+            top: 641px;
+            left: 611px;
+            width: 1280px;
+            height: 720px;
+
+        }
+    
+    </style>
+<body class="body">
+
+   <div style="position:absolute; top:0px; left:0px; width:1280px; height:720px;">
+<div class="con1">
+    <h1 class="txt">Real Time Pothole Detector</h1>
+    <h2 class="txt">BY</h2>
+    <h3 class="txt">G20</h3>
+</div>
+
+
+
+    <div  class="example-display" style="position:fixed; top:70px; left:40px; padding-top: 100px; padding-left: 200px;" >
+    <img id="bg" src="{{ url_for('video_feed') }}" style="position: fixed;">
+    </div>
+
+    <div class="con2">
+        <a href="/"  class="btn" >STOP</a>
+    </div>
+
+    <!-- <button name="cam" class="button" id="opencam">Video Cam</button>
+     -->
+     <!-- <img src="{{ url_for('video_cam') }}" width="640" height="480"> -->
+    
+
+    <!-- <p style="position:fixed; top:120px;left:890px;font-family:bold;font-size: 20pt">
+        Real Time Pothole Detector</p>
+    <p style="position:fixed; top:220px;left:1000px;font-family:bold;font-size: 18pt">
+       By</p>
+
+   <p style="position:fixed; top:260px;left:900px;font-family:bold;font-size: 18pt">G20</p> -->
+
+</body>
+</html>

@@ -2,15 +2,23 @@ import cv2
 import numpy as np
 import winsound
 import time
-from location import loc, record
+from location import Location, Latitude, Longitude
+import mysql.connector
+
+# print(Location, Latitude, Longitude)
+# con = mysql.connector.connect(host="localhost", user="sarafaraj", passwd="pass@1234")
+
+
 
 path = 'videos/pot_final.mp4'
 net = cv2.dnn.readNetFromDarknet('models/yolov4_tiny_pothole.cfg','models/yolov4_tiny_pothole_last.weights')
 classes = ['pothole']
 
+# location = get_location()
+
 class VideoCamera(object):
     def __init__(self):
-        self.video = cv2.VideoCapture(path)
+        self.video = cv2.VideoCapture(0)
 
     def __del__(self):
         self.video.release()
@@ -59,8 +67,44 @@ class VideoCamera(object):
                     cv2.putText(frame, f"area: {area} sq.ft", (x, y + 15), font, .5, (255, 255, 255), 1)
                     cv2.putText(frame, f'FPS: {fps}', (24, 30), font, 1.4, (55, 255, 255), 2)
                     ret, jpeg = cv2.imencode('.jpg', frame)
+
                     if label == 'pothole':
                         winsound.PlaySound('beep.wav',winsound.SND_ASYNC)
+                        
+
+                        def database():
+                              try:
+                                  connection = mysql.connector.connect(host='localhost',
+                                                                       database='potholedata',
+                                                                       user='root',
+                                                                       password='')
+                              
+                                  mySql_insert_query = """INSERT INTO pothole ( Location, Lattitude, Longitude, Area) 
+                                                         VALUES 
+                                                         (%s, %s, %s, %s) """
+                                  record = (Location, Latitude, Longitude, f"{area} sq.ft")
+                                  # cursor.execute(mySql_insert_query, record)
+                              
+                                  cursor = connection.cursor()
+                                  cursor.execute(mySql_insert_query, record)
+                                  connection.commit()
+                                  print(cursor.rowcount, "Record inserted successfully into pothole table")
+                                  cursor.close()
+                              
+                              except mysql.connector.Error as error:
+                                  print("Failed to insert record into Laptop table {}".format(error))
+                              
+                              finally:
+                                  if connection.is_connected():
+                                      connection.close()
+                                      print("\n")
+                        
+                        database()
+
+                        # print(Location)
+                        # print(Latitude)
+                        # print(Longitude)
+                        # print(f"{area} sq.ft")
                     #record()
                     return jpeg.tobytes()
             except:
