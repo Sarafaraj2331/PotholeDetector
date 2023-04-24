@@ -6,67 +6,77 @@
 <body class="body">
     <style>
         .body{
-            /* width: 5002222px; */
-            /* height: 50000000000; */
-            background-color: rgb(14, 22, 37);
 
+            background-color: rgb(14, 22, 37);
         }
         .btn{
             color: white;
             background: purple;
             padding: 8px 10px;
-            padding-top: 100px;
             font-size: 20px;
             border: 2px solid  white;
             border-radius: 14px;
             cursor: pointer;
             align-content: center;
             padding-top: 5px;
-            
+            margin: 10px 10px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
         }
 
         .h1{
             position: fixed;
             color: green;
-}
+        }
         .con{
-            position: fixed;
+            display: flex;
+            text-align: center;
             top: 240px;
-            left: 690px;
-            width: 1280px;
-            height: 720px;
+            left: 616px;
+            height: 40px;
+            position: absolute;
+            margin: 0 50px;
+            display: block;
 
         }
+
+        .con a{
+            display: flex;
+            text-decoration: none;
+        }
     </style>
-<div style="position:fixed; top:0px; left:0px; width:1280px; height:720px;">
+    <div style="position:fixed; top:0px; left:0px; width:1280px; height:720px;">
     <h1 class="h1" style="top: 40px; left: 542px;">Road Health Monitoring System</h1>
     <h1 class="h1" style="top: 80px; left: 720px;">BY</h1>
     <h1 class="h1" style="top: 120px; left: 715px;">G20</h1>
+              
+                <div class="con">
+                  <a href="base"  class="btn" >LIVE CAM!</a>
+                  <a href="base1"  class="btn" >VIDEO</a>
 
+                  <button class="btn" onclick="runScript()" ondblclick="showAlert1()">Delete</button>
+                  <button class="btn" onclick="exportData()" ondblclick="showAlert2()">Export</button>
+                  
+                </div>
 
+               <script>
+                    function runScript() {
+                      fetch('/Delete_Data')
+                    }
 
-
-    <!-- <div  class="example-display" style="position:fixed; top:70px; left:40px;">
-    <img id="bg" src="{{ url_for('video_feed') }}">
-    </div> -->
-
-    <!-- <button name="cam" class="button" id="opencam">Video Cam</button> -->
-    <!-- <a href="base" type="button" class="btn btn-outline-dark btn-sm mx-1">LIVE CAM</button> -->
-
-        <!-- <button class="btn"> -->
-            <div class="con">
-                <a href="base"  class="btn" >LIVE CAM!</a>
-            </div>
-
-     <!-- <img src="{{ url_for('video_cam') }}" width="640" height="480"> -->
+                    function showAlert1() {
+                    alert('Data Deleted successfully!')
+                    }
+                    function showAlert2() {
+                    alert('Data exported successfully!')
+                    }
     
-
-    <!-- <p style="position:fixed; top:120px;left:890px;font-family:bold;font-size: 20pt">
-        Real Time Pothole Detector</p>
-    <p style="position:fixed; top:220px;left:1000px;font-family:bold;font-size: 18pt">
-       By</p>
-
-   <p style="position:fixed; top:260px;left:900px;font-family:bold;font-size: 18pt">G20</p> -->
+                    function exportData() {
+                       fetch('/export_data')
+                    }
+                    
+                </script>
 
 </body>
 </html>

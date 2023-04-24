@@ -1,3 +1,5 @@
+
+
 import cv2
 import numpy as np
 import winsound
@@ -5,16 +7,8 @@ import time
 from location import Location, Latitude, Longitude
 import mysql.connector
 
-# print(Location, Latitude, Longitude)
-# con = mysql.connector.connect(host="localhost", user="sarafaraj", passwd="pass@1234")
-
-
-
-path = 'videos/pot_final.mp4'
 net = cv2.dnn.readNetFromDarknet('models/yolov4_tiny_pothole.cfg','models/yolov4_tiny_pothole_last.weights')
 classes = ['pothole']
-
-# location = get_location()
 
 class VideoCamera(object):
     def __init__(self):
@@ -83,7 +77,6 @@ class VideoCamera(object):
                                                          VALUES 
                                                          (%s, %s, %s, %s) """
                                   record = (Location, Latitude, Longitude, f"{area} sq.ft")
-                                  # cursor.execute(mySql_insert_query, record)
                               
                                   cursor = connection.cursor()
                                   cursor.execute(mySql_insert_query, record)
@@ -98,14 +91,9 @@ class VideoCamera(object):
                                   if connection.is_connected():
                                       connection.close()
                                       print("\n")
-                        
+                                      
                         database()
 
-                        # print(Location)
-                        # print(Latitude)
-                        # print(Longitude)
-                        # print(f"{area} sq.ft")
-                    #record()
                     return jpeg.tobytes()
             except:
                 ret, jpeg = cv2.imencode('.jpg', frame)
